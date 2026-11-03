@@ -47,11 +47,11 @@ color[] diamondColours = { // this array sets the colours of the dimonds
 
 int[] keyX = {
   720, 720, 720, 720, 720, 720, 720, 720, 720, 720, 720, 720
-};
+};//this is the x coordinates for the circles in the key 
 
 int[] keyY = {
   155, 195, 235, 275, 315, 355, 395, 435, 475, 515, 555, 595
-};
+};//this is the x coordinates for the circles in the key 
 
 int selectedWeek = 1;
 
@@ -92,7 +92,7 @@ void draw()
   stroke(255, 0, 0);
   strokeWeight(2);
 
-  if (selectedWeek == 1)
+  if (selectedWeek == 1)// if week one is selscted then create a red rectangle
   {
     rect(365, 58, 70, 30);
   }
@@ -111,12 +111,12 @@ void draw()
 
   for (int i = 0; i < 12; i++) {// Repeats for every coordinate in the array, increasing i by one each time to select the next position
     if (week1DayUses[i] > 0) {// if the number of uses in the day is greater than 0 than do 20 + day usage x 8
-      float circleSize = 20 + week1DayUses[i]*10;// this will also go through the for loop until i=5 that is when the sattement wil be false and it will stop creating circles and changing it sizes
+      float circleSize = 20 + week1DayUses[i]*10;// this will also go through the for loop until i=12 that is when the sattement wil be false and it will stop creating circles and changing it sizes
 
       fill(circleColours[i]);
       noStroke();
       ellipse(circleX[i], circleY[i],
-        circleSize, circleSize);
+        circleSize, circleSize); // here ive used the varibale circle size to determine the size of the circle 
     }
   }
   for (int i = 0; i < 12; i++) {
