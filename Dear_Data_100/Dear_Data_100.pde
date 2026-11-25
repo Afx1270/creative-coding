@@ -2,8 +2,8 @@ PFont Tittlefont; // creates a variable which sets the name for the font
 
 int[] circleX = {100, 250, 400, 600, 850, 750,
   150, 350, 500, 900, 650, 320}; // creates a variable which is an array and is used as the x axis of the circles
-int[] circleY = { 140, 300, 290, 250, 180, 450,
-  550, 650, 500, 600, 350, 400}; //creates a variable which is an array and is used as the y axis of the circles
+int[] circleY = { -50, -100, -150, -200, -250, -300,
+  -350, -400, -450, -500, -550, -600}; //creates a variable which is an array and is used as the y axis of the circles
 
 int[] diamondX = {
   200, 420, 700, 900, 150, 350,
@@ -11,38 +11,42 @@ int[] diamondX = {
 };//creates a variable which is an array and is used as the x axis of the Dimonds
 
 int[] diamondY = {
-  100, 180, 120, 350, 470, 550,
-  650, 530, 200, 600, 300, 370
+  -75, -125, -175, -225, -275, -325,
+  -375, -425, -475, -525, -575, -625
 };//creates a variable which is an array and is used as the y axis of the Dimonds
 
+float[] Yvelocity = {1.2, 2.1, 1.8, 2.5, 1.4, 1.7, 2.0, 1.3, 2.2, 1.5, 1.9, 2.4};
+
+
 color[] circleColours = { // this array sets the colours of the circles
-  color(255, 60, 60),
-  color(255, 140, 0),
-  color(255, 220, 40),
-  color(120, 255, 60),
-  color(0, 230, 150),
-  color(0, 220, 255),
-  color(60, 130, 255),
-  color(130, 80, 255),
-  color(220, 70, 255),
-  color(255, 80, 170),
-  color(255, 120, 100),
-  color(190, 255, 100)
+
+ color(105, 170, 255, 180), // Sapphire
+  color(255, 170, 220, 180), // Rose Quartz
+  color(170, 140, 255, 180), // Amethyst
+  color(80, 220, 220, 180),  // Turquoise
+  color(120, 255, 180, 180), // Seafoam
+  color(255, 210, 140, 180), // Peach
+  color(200, 110, 255, 180), // Violet
+  color(120, 200, 255, 180), // Aqua
+  color(255, 130, 180, 180), // Pink
+  color(180, 255, 120, 180), // Jade
+  color(220, 240, 255, 180), // Pearl
+  color(255, 240, 180, 180)  // Champagne
 };
 
 color[] diamondColours = { // this array sets the colours of the dimonds
-  color(255, 60, 60),
-  color(255, 140, 0),
-  color(255, 220, 40),
-  color(120, 255, 60),
-  color(0, 230, 150),
-  color(0, 220, 255),
-  color(60, 130, 255),
-  color(130, 80, 255),
-  color(220, 70, 255),
-  color(255, 80, 170),
-  color(255, 120, 100),
-  color(190, 255, 100)
+ color(105, 170, 255, 180), // Sapphire
+  color(255, 170, 220, 180), // Rose Quartz
+  color(170, 140, 255, 180), // Amethyst
+  color(80, 220, 220, 180),  // Turquoise
+  color(120, 255, 180, 180), // Seafoam
+  color(255, 210, 140, 180), // Peach
+  color(200, 110, 255, 180), // Violet
+  color(120, 200, 255, 180), // Aqua
+  color(255, 130, 180, 180), // Pink
+  color(180, 255, 120, 180), // Jade
+  color(220, 240, 255, 180), // Pearl
+  color(255, 240, 180, 180)  // Champagne
 };
 
 int[] keyX = {
@@ -78,8 +82,14 @@ int[] week2NightUses = {
   6, 0, 0, 2, 0, 0
 };
 
-int [] week3DayUses = { };
-int [] week3NightUses = { };
+int [] week3DayUses = {
+  7, 1, 7, 0, 0, 7,
+  2, 0, 0, 0, 0, 0
+};
+int [] week3NightUses = {
+  7, 0, 0, 0, 1, 7,
+  5, 0, 0, 6, 0, 0
+};
 
 void setup()
 {
@@ -89,8 +99,9 @@ void setup()
 
 void draw()
 {
-  background(0);
-
+  
+background(224, 230, 240);
+ 
   fill(255);
   textAlign(CENTER);
   textSize(30);
@@ -122,6 +133,33 @@ void draw()
   }
 
   noStroke();
+
+  for (int i = 0; i < 12; i++)
+  {
+    if (circleY[i] < 600)
+    {
+      circleY[i] += Yvelocity[i];
+
+      if (circleY[i] > 600)
+      {
+        circleY[i] = 600; // if the circle goes past 600 on the y axis then stop the circle at 600
+      }
+    }
+  }
+
+  for (int i = 0; i < 12; i++)
+  {
+    if (diamondY[i] < 650)
+    {
+      diamondY[i] += Yvelocity [i];
+
+      if (diamondY[i] > 500) 
+      {
+        diamondY[i] = 500; // if the circle goes past 500 on the y axis then stop the circle at 500
+      }
+    }
+  }
+
 
   int[] currentDayUses;
   int [] currentNightUses;
@@ -183,7 +221,7 @@ void draw()
     textSize(16);
     text("COSRX Salicylic Acid Cleanser", 740, 160);
     text("Medicube Vitamin C Toner Pads", 740, 200);
-    text("Azelaic Acid", 740, 240);
+    text("Vitamin C Serum", 740, 240);
     text("Beauty of Joseon SPF", 740, 280);
     text("Purito Retinol + Retinal Serum", 740, 320);
     text("Skin1004 Probio-Cica Moisturiser", 740, 360);
@@ -192,7 +230,7 @@ void draw()
     text("Whipped Ddalva Cleanser", 740, 480);
     text("Hyaluronic Acid Eye Patches", 740, 520);
     text("Mixoon Bean Essence", 740, 560);
-    text("Hypochlorous Acid Mist", 740, 600);
+    text("Hyaluronic Acid ", 740, 600);
     //this creates a list of all the things that are included in the key (so all the names of the skincare brands)
     text("DAY", 740, 645);
     text("NIGHT", 840, 645);
