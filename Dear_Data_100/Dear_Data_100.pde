@@ -15,39 +15,34 @@ int[] diamondY = {
   -375, -425, -475, -525, -575, -625
 };//creates a variable which is an array and is used as the y axis of the Dimonds
 
-float[] Yvelocity = {1.2, 2.1, 1.8, 2.5, 1.4, 1.7, 2.0, 1.3, 2.2, 1.5, 1.9, 2.4};
+float[] Yvelocity = {1.2, 2.1, 1.8, 2.5, 1.4, 1.7, 2.0, 1.3, 2.2, 1.5, 1.9, 2.4}; // this array sets the vertical speed of the shapes
 
-
-color[] circleColours = { // this array sets the colours of the circles
-
- color(105, 170, 255, 180), // Sapphire
-  color(255, 170, 220, 180), // Rose Quartz
-  color(170, 140, 255, 180), // Amethyst
-  color(80, 220, 220, 180),  // Turquoise
-  color(120, 255, 180, 180), // Seafoam
-  color(255, 210, 140, 180), // Peach
-  color(200, 110, 255, 180), // Violet
-  color(120, 200, 255, 180), // Aqua
-  color(255, 130, 180, 180), // Pink
-  color(180, 255, 120, 180), // Jade
-  color(220, 240, 255, 180), // Pearl
-  color(255, 240, 180, 180)  // Champagne
+int[] circleStopY = {
+  200, 350, 500, 250, 450, 600,
+  300, 550, 400, 650, 150, 520
 };
 
-color[] diamondColours = { // this array sets the colours of the dimonds
- color(105, 170, 255, 180), // Sapphire
-  color(255, 170, 220, 180), // Rose Quartz
-  color(170, 140, 255, 180), // Amethyst
-  color(80, 220, 220, 180),  // Turquoise
-  color(120, 255, 180, 180), // Seafoam
-  color(255, 210, 140, 180), // Peach
-  color(200, 110, 255, 180), // Violet
-  color(120, 200, 255, 180), // Aqua
-  color(255, 130, 180, 180), // Pink
-  color(180, 255, 120, 180), // Jade
-  color(220, 240, 255, 180), // Pearl
-  color(255, 240, 180, 180)  // Champagne
+int[] diamondStopY = {
+  250, 450, 150, 550, 350, 600,
+  200, 500, 300, 650, 400, 520
 };
+
+color[] colours = {
+  color(0, 102, 204, 180), // Ocean Blue
+  color(102, 204, 255, 180), // Ice Blue
+  color(0, 191, 166, 180), // Aqua
+  color(0, 153, 102, 180), // Emerald
+  color(144, 214, 155, 180), // Sage
+  color(34, 85, 51, 180), // Forest
+  color(123, 63, 228, 180), // Royal Purple
+  color(196, 167, 255, 180), // Lilac
+  color(74, 35, 130, 180), // Deep Plum
+  color(255, 255, 255, 180), // White Pearl
+  color(255, 215, 235, 180), // Rose Quartz
+  color(255, 200, 170, 180)   // Soft Peach
+};
+
+//  this array sets the colours of the shapes
 
 int[] keyX = {
   720, 720, 720, 720, 720, 720, 720, 720, 720, 720, 720, 720
@@ -60,6 +55,20 @@ int[] keyY = {
 int selectedWeek = 1;
 int[] currentDayUses;
 int [] currentNightUses;
+
+class WeekData { // i have created a class called weekdata including 2 arrays one for day uses and one for night uses
+  int[] dayUses;
+  int[] nightUses;
+
+  WeekData(int[] day, int[] night) {
+    dayUses = day;
+    nightUses = night;
+  }
+}
+// here i created three objects for week 1,2 & 3
+WeekData week1;
+WeekData week2;
+WeekData week3;
 
 //Week 1 array data uses
 int[] week1DayUses = {
@@ -91,6 +100,7 @@ int [] week3NightUses = {
   5, 0, 0, 6, 0, 0
 };
 
+
 void setup()
 {
   size(1000, 750);
@@ -99,10 +109,10 @@ void setup()
 
 void draw()
 {
-  
-background(224, 230, 240);
- 
-  fill(255);
+
+  background(215, 228, 238);
+
+  fill(30, 45, 70);
   textAlign(CENTER);
   textSize(30);
   textFont(Tittlefont, 30);
@@ -116,6 +126,11 @@ background(224, 230, 240);
   noFill();
   stroke(255, 0, 0);
   strokeWeight(2);
+
+  week1 = new WeekData(week1DayUses, week1NightUses);
+  week2 = new WeekData(week2DayUses, week2NightUses);
+  week3 = new WeekData(week3DayUses, week3NightUses);
+//Three WeekData objects (week1, week2 and week3) are created, allowing related data to be stored in a single object rather than using separate arrays 
 
   if (selectedWeek == 1)// if week one is selected then create a red rectangle
   {
@@ -136,53 +151,58 @@ background(224, 230, 240);
 
   for (int i = 0; i < 12; i++)
   {
-    if (circleY[i] < 600)
+    if (circleY[i] < circleStopY[i])
     {
       circleY[i] += Yvelocity[i];
 
-      if (circleY[i] > 600)
+      if (circleY[i] > circleStopY[i])
       {
-        circleY[i] = 600; // if the circle goes past 600 on the y axis then stop the circle at 600
+        circleY[i] = circleStopY[i];
       }
     }
   }
 
   for (int i = 0; i < 12; i++)
   {
-    if (diamondY[i] < 650)
+    if (diamondY[i] < diamondStopY[i])
     {
-      diamondY[i] += Yvelocity [i];
+      diamondY[i] += Yvelocity[i];
 
-      if (diamondY[i] > 500) 
+      if (diamondY[i] > diamondStopY[i])
       {
-        diamondY[i] = 500; // if the circle goes past 500 on the y axis then stop the circle at 500
+        diamondY[i] = diamondStopY[i];
       }
     }
   }
 
-
   int[] currentDayUses;
   int [] currentNightUses;
 
+
+
+  WeekData currentWeek;  
+
   if (selectedWeek == 1)
   {
-    currentDayUses = week1DayUses;
-    currentNightUses = week1NightUses;
+    currentWeek = week1;
   } else if (selectedWeek == 2)
   {
-    currentDayUses = week2DayUses;
-    currentNightUses = week2NightUses;
+    currentWeek = week2;
   } else
   {
-    currentDayUses = week3DayUses;
-    currentNightUses = week3NightUses; // Changes the displayed data based on the selected week.
+    currentWeek = week3;
   }
+
+  currentDayUses = currentWeek.dayUses;
+  currentNightUses = currentWeek.nightUses;
+  // Changes the displayed data based on the selected week.
+
 
   for (int i = 0; i < 12; i++) {// Repeats for every coordinate in the array, increasing i by one each time to select the next position
     if (currentDayUses[i] > 0) { // if the number of uses in the day is greater than 0 than do 20 + day usage x 8
       float circleSize = 20 + currentDayUses[i]*10; // this will also go through the for loop until i=12 that is when the sattement wil be false and it will stop creating circles and changing it sizes
 
-      fill(circleColours[i]);
+      fill(colours[i]);
       noStroke();
       ellipse(circleX[i], circleY[i],
         circleSize, circleSize); // here ive used the varibale circle size to determine the size of the circle
@@ -193,7 +213,7 @@ background(224, 230, 240);
     {
       float diamondSize = 20 + currentNightUses[i] * 10;
 
-      fill(diamondColours[i]);
+      fill(colours[i]);
       noStroke();
 
       quad(
@@ -241,7 +261,7 @@ background(224, 230, 240);
 
     for (int i = 0; i < 12; i++)// thsi code repeats 12 times untill all the items from the array are used
     {
-      fill(circleColours[i]);
+      fill(colours[i]);
       ellipse(keyX[i], keyY[i], 20, 20);
       // this creates circles with the coresponding colours next to each skincare brand name to diffrentiate the brands
     }
