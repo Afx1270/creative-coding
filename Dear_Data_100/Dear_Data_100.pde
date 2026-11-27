@@ -100,7 +100,6 @@ int [] week3NightUses = {
   5, 0, 0, 6, 0, 0
 };
 
-
 void setup()
 {
   size(1000, 750);
@@ -130,7 +129,8 @@ void draw()
   week1 = new WeekData(week1DayUses, week1NightUses);
   week2 = new WeekData(week2DayUses, week2NightUses);
   week3 = new WeekData(week3DayUses, week3NightUses);
-//Three WeekData objects (week1, week2 and week3) are created, allowing related data to be stored in a single object rather than using separate arrays 
+
+  //Three WeekData objects (week1, week2 and week3) are created, allowing related data to be stored in a single object rather than using separate arrays
 
   if (selectedWeek == 1)// if week one is selected then create a red rectangle
   {
@@ -166,7 +166,8 @@ void draw()
   {
     if (diamondY[i] < diamondStopY[i])
     {
-      diamondY[i] += Yvelocity[i];
+      diamondY[i] += Yvelocity[i]; 
+      // adds the velocity to the current Y position
 
       if (diamondY[i] > diamondStopY[i])
       {
@@ -178,9 +179,7 @@ void draw()
   int[] currentDayUses;
   int [] currentNightUses;
 
-
-
-  WeekData currentWeek;  
+  WeekData currentWeek;
 
   if (selectedWeek == 1)
   {
@@ -192,10 +191,10 @@ void draw()
   {
     currentWeek = week3;
   }
-
+  // Changes the displayed data based on the selected week.
   currentDayUses = currentWeek.dayUses;
   currentNightUses = currentWeek.nightUses;
-  // Changes the displayed data based on the selected week.
+  // Gets the day and night data from the selected week object.
 
 
   for (int i = 0; i < 12; i++) {// Repeats for every coordinate in the array, increasing i by one each time to select the next position
@@ -235,7 +234,7 @@ void draw()
     fill(0);
     textAlign(LEFT);
     textSize(25);
-    text("SKINCARE KEY", 720, 115);// this creates the title on the wirte rectangle
+    text("SKINCARE KEY", 720, 115);// this creates the title on the write rectangle
 
     textAlign(LEFT);
     textSize(16);
